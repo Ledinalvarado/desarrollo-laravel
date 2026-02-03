@@ -15,7 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('address');
             $table->date('birth_date');
-            $table->foreignId('estudiante_id')->constrained('estudiantes');
+
+            //crear la relacion con la tabla de estudiantes
+            //columna en la tabla de profiles en la BD
+            $table->foreignId('estudiante_id')->unique();
+            //relacion - clave foraneas
+            $table->foreign('estudiante_id')->references('id')->on('estudiantes');
+            //NOTA:EL ORDEN DE CREACION DE LAS TABLAS EN LAS MIGRACIONES SII IMPORTA
+            //TABLAS PADRES A LAS QUE NO TIENEN LLAVES FORANEAS
+            //TABLAS HIJAS SON LAS QUE SI TIENEN DEPENDECIA
+
+
             $table->timestamps();
         });
     }
