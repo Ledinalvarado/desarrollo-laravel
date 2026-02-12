@@ -100,8 +100,113 @@ En cualquier vista Vue (por ejemplo `Index.vue`):
 </template>
 ```
 
-✔ Si aparece el botón azul → Vuetify está funcionando correctamente.
+- Si aparece el botón azul -> Vuetify está funcionando correctamente.
+-AHORA, si NO aparece asi podriamos probar con lo siguiente
+- En la carpeta JS hay que crear otra carpeta con el nombre de Plugins.
+Dentro de Plugins hay que importar algunas configuraciones de vuetify en un nuevo archivo llamado `vuetify.js`
+```vue
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import { mdi } from 'vuetify/iconsets/mdi'
 
+export default createVuetify({
+    components,
+    directives,
+    icons: {
+        defaultSet: 'mdi',
+        sets: {
+            mdi,
+        },
+    },
+    theme: {
+        defaultTheme: 'light',
+        themes: {
+            light: {
+                dark: false,
+                colors: {
+                    primary: '#22c55e', // Verde principal
+                    secondary: '#fbbf24', // Amarillo secundario
+                    accent: '#22c55e',
+                    error: '#ef4444',
+                    info: '#3b82f6',
+                    success: '#10b981',
+                    warning: '#f59e0b',
+                    background: '#ffffff',
+                    surface: '#ffffff',
+                    'on-primary': '#ffffff',
+                    'on-secondary': '#1f2937',
+                    'on-background': '#2d3748',
+                    'on-surface': '#2d3748',
+                    'grey-50': '#f9fafb',
+                    'grey-100': '#f3f4f6',
+                    'grey-200': '#e5e7eb',
+                    'grey-300': '#d1d5db',
+                    'grey-400': '#9ca3af',
+                    'grey-500': '#6b7280',
+                    'grey-600': '#4b5563',
+                    'grey-700': '#374151',
+                    'grey-800': '#1f2937',
+                    'grey-900': '#111827',
+                }
+            },
+            dark: {
+                dark: true,
+                colors: {
+                    primary: '#22c55e',
+                    secondary: '#fbbf24',
+                    accent: '#22c55e',
+                    error: '#ef4444',
+                    info: '#3b82f6',
+                    success: '#10b981',
+                    warning: '#f59e0b',
+                    background: '#1f2937',
+                    surface: '#374151',
+                    'on-primary': '#ffffff',
+                    'on-secondary': '#1f2937',
+                    'on-background': '#f9fafb',
+                    'on-surface': '#f9fafb',
+                }
+            }
+        }
+    }
+})
+```
+---
+###  También modificar el archivo ```app.js``` con el siguiente codigo.
+```vue
+
+import './bootstrap';
+import '../css/app.css';
+
+import { createApp, h } from 'vue';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import { createVuetify } from 'vuetify'
+import 'vuetify/styles'
+import '@mdi/font/css/materialdesignicons.css'
+import vuetify from './Plugins/vuetify'
+
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    setup({ el, App, props, plugin }) {
+        return createApp({ render: () => h(App, props) })
+            .use(plugin)
+            .use(ZiggyVue)
+            .use(vuetify)
+            .mount(el);
+    },
+    progress: {
+        color: '#4B5563',
+    },
+});
+
+```
 ---
 
 #  PARTE 2 — IMPLEMENTAR RUTA POST PARA STUDENT

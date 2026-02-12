@@ -3,7 +3,13 @@
 </script>
 
 <template>
-<h1>Hola desde index Students</h1>
+    <v-app>
+        <v-container>
+            <v-btn color="primary">
+                Botón Vuetify
+            </v-btn>
+        </v-container>
+    </v-app>
 </template>
 
 <style scoped>
