@@ -11,9 +11,14 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
+
+
     <div>
+
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
+
+
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -145,8 +150,45 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Content -->
             <main>
+
                 <slot />
             </main>
         </div>
+
     </div>
+
+<!--    <template>-->
+    <v-card>
+        <v-layout>
+            <v-navigation-drawer
+                expand-on-hover
+                permanent
+                rail
+            >
+                <v-list>
+                    <v-list-item
+                        prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
+                        :subtitle="  $page.props.auth.user.email "
+                       v-bind:title= "$page.props.auth.user.name"
+                    ></v-list-item>
+                </v-list>
+
+                <v-divider></v-divider>
+
+                <v-list density="compact" nav>
+<!--                    <v-list-item prepend-icon="mdi-account" title="Estudiantes" value="myfiles"></v-list-item>-->
+                    <Link :href="route('students.index')" class="text-decoration-none">
+                        <v-list-item prepend-icon="mdi-account" title="Estudiantes"></v-list-item>
+                    </Link>
+                    <v-list-item prepend-icon="mdi-account-multiple" title="Catedraticos" value="shared"></v-list-item>
+                    <v-list-item prepend-icon="mdi-book" title="Cursos" value="starred"></v-list-item>
+                </v-list>
+            </v-navigation-drawer>
+
+            <v-main style="height: 250px"></v-main>
+        </v-layout>
+    </v-card>
+
+
+    <!--    </template>-->
 </template>

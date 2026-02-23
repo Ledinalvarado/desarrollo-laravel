@@ -19,9 +19,9 @@ export default createVuetify({
             light: {
                 dark: false,
                 colors: {
-                    primary: '#22c55e', // Verde principal
-                    secondary: '#fbbf24', // Amarillo secundario
-                    accent: '#22c55e',
+                    primary: 'rgba(38,61,125,0.75)', // Verde principal
+                    secondary: '#f59e0b', // Amarillo secundario
+                    accent: '#416a9b',
                     error: '#ef4444',
                     info: '#3b82f6',
                     success: '#10b981',
@@ -31,6 +31,7 @@ export default createVuetify({
                     'on-primary': '#ffffff',
                     'on-secondary': '#1f2937',
                     'on-background': '#2d3748',
+
                     'on-surface': '#2d3748',
                     'grey-50': '#f9fafb',
                     'grey-100': '#f3f4f6',
